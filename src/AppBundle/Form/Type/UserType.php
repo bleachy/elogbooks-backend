@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\Job;
+use AppBundle\Entity\User;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class JobType extends AbstractApiType
+class UserType extends AbstractApiType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,9 +15,8 @@ class JobType extends AbstractApiType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description', null, [])
-            ->add('status', null, [])
-            ->add('assignee', null, []);
+            ->add('name', null, [])
+            ->add('email', null, []);
     }
 
     /**
@@ -26,7 +25,7 @@ class JobType extends AbstractApiType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Job::class,
+            'data_class' => User::class,
             'csrf_protection' => false,
         ));
     }

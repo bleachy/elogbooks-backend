@@ -4,7 +4,7 @@ namespace AppBundle\Form\FilterType\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class JobFilter
+class UserFilter
 {
     const LIMIT = 30;
 
@@ -68,44 +68,14 @@ class JobFilter
      *
      * @Assert\Type(type="string")
      */
-    protected $status;
+    protected $name;
 
     /**
      * @var string
      *
      * @Assert\Type(type="string")
      */
-    protected $type;
-
-    /**
-     * @var string
-     *
-     * @Assert\Type(type="string")
-     */
-    protected $description;
-
-    /**
-     *
-     * @var int
-     *
-     * @Assert\type(type="integer")
-     **/
-    protected $customer;
-
-    /**
-     *
-     * @var string
-     *
-     * @Assert\type(type="string")
-     **/
-    protected $priority;
-
-    /**
-     * @var int
-     *
-     * @Assert\type(type="integer")
-     */
-    protected $assignee;
+    protected $email;
 
     /**
      * @return array
@@ -134,39 +104,19 @@ class JobFilter
     /**
      * @return string
      */
-    public function getPriority()
+    public function getName()
     {
-        return $this->priority;
+        return $this->name;
     }
 
     /**
-     * @param string $priority
+     * @param string $name
      *
      * @return self
      */
-    public function setPriority($priority)
+    public function setName($name)
     {
-        $this->priority = $priority;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
-
-    /**
-     * @param string $customer
-     *
-     * @return self
-     */
-    public function setCustomer($customer)
-    {
-        $this->customer = $customer;
+        $this->name = $name;
 
         return $this;
     }
@@ -174,79 +124,19 @@ class JobFilter
     /**
      * @return string
      */
-    public function getStatus()
+    public function getEmail()
     {
-        return $this->status;
+        return $this->email;
     }
 
     /**
-     * @param string $status
+     * @param string $email
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setEmail($email)
     {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     *
-     * @return self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return self
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAssignee()
-    {
-        return $this->assignee;
-    }
-
-    /**
-     * @param int $assignee
-     *
-     * @return $this
-     */
-    public function setAssignee($assignee)
-    {
-        $this->assignee = $assignee;
+        $this->email = $email;
 
         return $this;
     }
@@ -362,7 +252,7 @@ class JobFilter
     /**
      * @param string $serialisationGroups
      *
-     * @return self
+     * @return array
      */
     public function setSerialisationGroups($serialisationGroups)
     {

@@ -2,29 +2,28 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\FilterType\Model\ListFilter;
-use AppBundle\Form\FilterType\Model\JobFilter;
+use AppBundle\Entity\User;
+use AppBundle\Form\FilterType\Model\UserFilter;
 use Knp\Component\Pager\Pagination\AbstractPagination;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Job;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @Route("/job")
+ * @Route("/user")
  */
-class JobController extends AbstractApiController
+class UserController extends AbstractApiController
 {
     /**
      * @Route("/{id}")
      * @Method("GET")
      */
-    public function getAction(Job $job)
+    public function getAction(User $user)
     {
-        return $this->returnViewResponse($job);
+        return $this->returnViewResponse($user);
     }
 
     /**
@@ -37,9 +36,9 @@ class JobController extends AbstractApiController
      */
     public function cgetAction(Request $request)
     {
-        $filter = new JobFilter();
+        $filter = new UserFilter();
 
-        $form = $this->createForm('AppBundle\Form\FilterType\JobFilterType', $filter, ['method' => 'GET']);
+        $form = $this->createForm('AppBundle\Form\FilterType\UserFilterType', $filter, ['method' => 'GET']);
         $form->handleRequest($request);
 
         if ($this->getErrors($form)) {
@@ -50,7 +49,7 @@ class JobController extends AbstractApiController
         $pagination = $this->get('knp_paginator')->paginate(
             $this
                 ->getDoctrine()
-                ->getRepository(Job::class)
+                ->getRepository(User::class)
                 ->filterAndReturnQuery($filter),
             $filter->getPage(),
             $filter->getLimit()
@@ -73,16 +72,16 @@ class JobController extends AbstractApiController
      */
     public function postAction(Request $request)
     {
-        $job = new Job();
-        $form = $this->createForm('AppBundle\Form\Type\JobType', $job, ['method' => 'POST']);
+        $user = new User();
+        $form = $this->createForm('AppBundle\Form\Type\UserType', $user, ['method' => 'POST']);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($job);
+            $em->persist($user);
             $em->flush();
 
-            return $this->returnViewResponse($job, Response::HTTP_CREATED);
+            return $this->returnViewResponse($user, Response::HTTP_CREATED);
         }
 
         return $this->returnViewResponse($this->getErrors($form), Response::HTTP_BAD_REQUEST);
@@ -90,24 +89,24 @@ class JobController extends AbstractApiController
 
     /**
      * @param Request $request
-     * @param Job     $job
+     * @param User    $user
      *
      * @return Response
      *
      * @Route("/{id}")
      * @Method("PUT")
      */
-    public function putAction(Request $request, Job $job)
+    public function putAction(Request $request, User $user)
     {
-        $form = $this->createForm('AppBundle\Form\Type\JobType', $job, ['method' => 'PUT']);
+        $form = $this->createForm('AppBundle\Form\Type\UserType', $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($job);
+            $em->persist($user);
             $em->flush();
 
-            return $this->returnViewResponse($job, Response::HTTP_OK);
+            return $this->returnViewResponse($user, Response::HTTP_OK);
         }
 
         return $this->returnViewResponse($this->getErrors($form), Response::HTTP_BAD_REQUEST);

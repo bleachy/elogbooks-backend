@@ -37,6 +37,17 @@ class Job
     protected $description;
 
     /**
+     * @var User
+     *
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id")
+     *
+     * @JMS\Expose
+     * @JMS\Groups({"default", "list"})
+     */
+    protected $assignee;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="integer")
@@ -70,6 +81,46 @@ class Job
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAssignee()
+    {
+        return $this->assignee;
+    }
+
+    /**
+     * @param User $assignee
+     *
+     * @return self
+     */
+    public function setAssignee(User $assignee = null)
+    {
+        $this->assignee = $assignee;
 
         return $this;
     }

@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\FilterType;
 
-use AppBundle\Form\FilterType\Model\JobFilter;
+use AppBundle\Form\FilterType\Model\UserFilter;
 use AppBundle\Form\Type\AbstractApiType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class JobFilterType extends AbstractApiType
+class UserFilterType extends AbstractApiType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -22,13 +22,8 @@ class JobFilterType extends AbstractApiType
             ->add('orderKey', null, [])
             ->add('orderDirection', null, [])
             ->add('serialisationGroups', null, [])
-            ->add('status',null,[])
-            ->add('type',null,[])
-            ->add('description',null,[])
-            ->add('customer',null,[])
-            ->add('priority',null,[])
-            ->add('assignee',null,[])
-        ;
+            ->add('name',null,[])
+            ->add('email',null,[]);
     }
 
     /**
@@ -37,7 +32,7 @@ class JobFilterType extends AbstractApiType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => JobFilter::class,
+            'data_class' => UserFilter::class,
             'csrf_protection' => false,
         ));
     }
